@@ -6,7 +6,10 @@ const eventHub = document.querySelector("#container")
 
 const renderForm = (products) => {
     contentTarget.innerHTML = `
-                <label for="review-dropdown">Leave a Review for: </label>
+        <h3>Add a New Review</h3>
+        <form class="productReviewForm">
+        <fieldset>            
+                <label for="review-dropdown">Product: </label>
                 <select id="review--product" class="reviewProduct">
                     <option value="0">Please select a product to review</option>
                     ${
@@ -20,7 +23,7 @@ const renderForm = (products) => {
                 <input type="text" id="review--title">
             
                 <label for="review-body">Review: </label>
-                <input type="text" id="review--body">
+                <textarea name="review" rows="5" cols"20" id="review--body"></textarea>
             
                 <label for="review-rating">Rating: </label>
                 <select id="review--rating" id="review--rating">
@@ -33,6 +36,8 @@ const renderForm = (products) => {
                 </select>
 
             <button id="save--review">Leave a Review</button>
+        </fieldset>
+        </form>
     `
 }
 
