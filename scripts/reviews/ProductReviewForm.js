@@ -2,19 +2,18 @@ import { getProducts, useProducts } from '../products/ProductProvider.js'
 import { savedReview } from './ProductReviewProvider.js'
 
 const contentTarget = document.querySelector(".reviewForm")
-const eventHub = document.querySelector(".container")
+const eventHub = document.querySelector("#container")
 
-eventHub.addEventListener("showNewReviewForm", event => {
-    renderForm()
-})
-
-const renderForm = (productsArray) => {
-    const stringOfProductOptions = productsArray.map(product => `option value="${product.id}">${product.name}</option>`)
+const renderForm = (products) => {
     contentTarget.innerHTML = `
                 <label for="review-dropdown">Leave a Review for: </label>
                 <select id="review--product" class="reviewProduct">
                     <option value="0">Please select a product to review</option>
-                    ${stringOfProductOptions.join("")}
+                    ${
+                        products.map(product => {
+                            return `<option value="${product.id}">${product.name}</option>`
+                        }).join("")
+                    }
                 </select>
 
                 <label for="review-title">Title: </label>
@@ -24,12 +23,14 @@ const renderForm = (productsArray) => {
                 <input type="text" id="review--body">
             
                 <label for="review-rating">Rating: </label>
-                <input type="radio" id="review--rating">
-                    <div class=”fa fa-star checked” id=”one”></div>
-                    <div class=”fa fa-star unchecked” id=”two”></div>
-                    <div class=”fa fa-star unchecked” id=”three”></div>
-                    <div class=”fa fa-star unchecked” id=”four”></div>
-                    <div class=”fa fa-star unchecked” id=”five”></div>
+                <select id="review--rating" id="review--rating">
+                <option value="0">How would you rate this product?</option>
+                    <option>1 - Not great!</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5 - Great!</option>
+                </select>
 
             <button id="save--review">Leave a Review</button>
     `
@@ -38,10 +39,14 @@ const renderForm = (productsArray) => {
 export const productReviewForm = () => {
     getProducts()
     .then(() => {
+        console.log("products")
         const productsArray = useProducts()
+        console.log(productsArray)
         renderForm(productsArray)
     })
 }
+
+eventHub.addEventListener("showNewReviewForm", productReviewForm)
 
 //render form HTML
 //eventListener listening for custom event "showNewReviewForm" 
