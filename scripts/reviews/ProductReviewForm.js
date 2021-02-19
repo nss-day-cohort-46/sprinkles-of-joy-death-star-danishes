@@ -1,7 +1,47 @@
-import { getReviews, useReviews, savedReview } from './ProductReviewProvider.js'
+import { getProducts, useProducts } from '../products/ProductProvider.js'
+import { savedReview } from './ProductReviewProvider.js'
 
 const contentTarget = document.querySelector(".reviewForm")
 const eventHub = document.querySelector(".container")
+
+eventHub.addEventListener("showNewReviewForm", event => {
+    renderForm()
+})
+
+const renderForm = (prodctsArray) => {
+    const stringOfProductOptions = prodctsArray.map(product => `option value="${product.id}">${product.name}</option>`)
+    contentTarget.innerHTML = `
+                <label for="review-dropdown">Leave a Review for: </label>
+                <select id="review--product" class="reviewProduct">
+                    <option value="0">Please select a product to review</option>
+                    ${stringOfProductOptions.join("")}
+                </select>
+
+                <label for="review-title">Title: </label>
+                <input type="text" id="review--title">
+            
+                <label for="review-body">Review: </label>
+                <input type="text" id="review--body">
+            
+                <label for="review-rating">Rating: </label>
+                <input type="radio" id="review--rating">
+                    <div class=”fa fa-star checked” id=”one”></div>
+                    <div class=”fa fa-star unchecked” id=”two”></div>
+                    <div class=”fa fa-star unchecked” id=”three”></div>
+                    <div class=”fa fa-star unchecked” id=”four”></div>
+                    <div class=”fa fa-star unchecked” id=”five”></div>
+
+            <button id="save--review">Leave a Review</button>
+    `
+}
+
+export const productReviewForm = () => {
+    getProducts()
+    .then(() => {
+        const productsArray = useProducts()
+        renderForm(productsArray)
+    })
+}
 
 //render form HTML
 //eventListener listening for custom event "showNewReviewForm" 
