@@ -25,3 +25,15 @@ const render = () => {
     return Product(product, productCategory)
   }).join("")
 }
+
+eventHub.addEventListener("categorySelected", event => {
+  const categoryId = event.detail.selectedCategory
+  if(categoryId !== "0") {
+    bakeryProducts = useProducts().filter(product => product.categoryId === parseInt(categoryId))
+    render()
+
+  } else {
+    bakeryProducts = useProducts()
+    render()
+  }
+})
