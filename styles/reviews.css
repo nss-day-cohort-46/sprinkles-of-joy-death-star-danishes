@@ -1,8 +1,26 @@
-.checked
-{
-color:red;
+/* .productReviewForm {
+
+} */
+
+form {
+    width: 400px;
+    height: 550px;
+    margin: auto;
+    position: relative; 
 }
-.unchecked
-{
-color:black;
+
+fieldset {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    border: 0;
+}
+
+#save--review {
+    width: 9em;
+    margin: 20px 5px 10px 0;
+}
+
+label {
+    margin: 8px;
 }
