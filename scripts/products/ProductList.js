@@ -22,7 +22,7 @@ const render = () => {
   contentTarget.innerHTML = bakeryProducts.map(product => {
     const productCategory = bakeryCategories.find(category => category.id === product.categoryId)
 
-    return Product(product, productCategory)
+    return Product(product, productCategory, review)
   }).join("")
 }
 

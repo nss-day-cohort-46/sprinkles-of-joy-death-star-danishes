@@ -1,4 +1,6 @@
 import { getProducts, useProducts } from '../products/ProductProvider.js'
+import { authHelper } from '../auth/authHelper.js'
+import { savedReview } from '../reviews/ProductReviewProvider.js'
 
 const contentTarget = document.querySelector(".reviewForm")
 const eventHub = document.querySelector("#container")
@@ -27,11 +29,11 @@ const renderForm = (products) => {
                 <label for="review-rating">Rating: </label>
                 <select id="review--rating" id="review--rating">
                 <option value="0">How would you rate this product?</option>
-                    <option>1 - Not great!</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5 - Great!</option>
+                    <option value="1">1 - Not great!</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 - Great!</option>
                 </select>
 
             <button id="save--review">Leave a Review</button>
@@ -52,11 +54,24 @@ export const productReviewForm = () => {
 
 eventHub.addEventListener("showNewReviewForm", productReviewForm)
 
-eventHub.addEventListener("saveReviewClick", clickEvent => {
-    if (clickEvent.target.id === "save--review") {
-        const customEvent = new CustomEvent("saveReviewClicked")
-        eventHub.dispatchEvent(customEvent)
-    }
+eventHub.addEventListener("click", event => {
+    if (event.target.id === "save--review") {
+
+        const productId = document.getElementById("review--product").value
+        const title = document.getElementById("review--title").value
+        const review = document.getElementById("review--body").value
+        const rating = document.getElementById("review--rating").value
+        const customerId = authHelper.getCurrentUserId()
+        
+        const newReview = {
+            productId: parseInt(productId),
+            title: title,
+            review: review,
+            rating: rating,
+            customerId: parseInt(customerId)
+            }
+            savedReview(newReview)
+        }
 })
 
 //render form HTML
@@ -65,6 +80,6 @@ eventHub.addEventListener("saveReviewClick", clickEvent => {
 //eventlisteners for when back to main menu is clicked (another button)
 
 //When the user performs a gesture on the "Leave A Review" button
-// Then the user will be presented with a form with review title, body, and star rating fields.
+// Then the us`er will be presented with a form with review title, body, and star rating fields.
 // When a user rates a product from 1 to 5
 // Then the product rating must be saved upon submitting

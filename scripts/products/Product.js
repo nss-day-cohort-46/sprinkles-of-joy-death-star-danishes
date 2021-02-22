@@ -1,5 +1,3 @@
-import { savedReview } from './ProductReviewProvider.js'
-
 const eventHub = document.querySelector("#container")
 
 export const Product = (product, category) => {
@@ -26,24 +24,5 @@ eventHub.addEventListener("click", evt => {
             }
         })
         eventHub.dispatchEvent(addProductEvent)
-    }
-})
-
-//saved reviews listener
-
-eventHub.addEventListener("saveReviewClick", clickEvent => {
-    if (clickEvent.target.id === "save--review") {
-        const productId = document.getElementById("review--product").value
-        // const title = document.getElementById("review--title").value
-        // const review = document.getElementById("review--body").value
-        const rating = document.getElementById("review--rating").value
-
-        const newReview = {
-            productId: parseInt(productId),
-            // title: title,
-            // review: review,
-            rating: rating
-        }
-        savedReview(newReview)
     }
 })
