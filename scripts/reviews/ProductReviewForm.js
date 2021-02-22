@@ -1,5 +1,4 @@
 import { getProducts, useProducts } from '../products/ProductProvider.js'
-import { savedReview } from './ProductReviewProvider.js'
 
 const contentTarget = document.querySelector(".reviewForm")
 const eventHub = document.querySelector("#container")
@@ -52,6 +51,13 @@ export const productReviewForm = () => {
 }
 
 eventHub.addEventListener("showNewReviewForm", productReviewForm)
+
+eventHub.addEventListener("saveReviewClick", clickEvent => {
+    if (clickEvent.target.id === "save--review") {
+        const customEvent = new CustomEvent("saveReviewClicked")
+        eventHub.dispatchEvent(customEvent)
+    }
+})
 
 //render form HTML
 //eventListener listening for custom event "showNewReviewForm" 

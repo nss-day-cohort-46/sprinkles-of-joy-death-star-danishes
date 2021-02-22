@@ -1,15 +1,24 @@
+import { bakeryAPI } from "../Settings.js"
+
 let reviews = []
 
+const eventHub = document.querySelector("#container")
+
 export const getReviews = () => {
-    return fetch('http://localhost:8088/reviews')
+    return fetch(`${bakeryAPI.baseURL}/reviews`)
         .then(response => response.json())
         .then(parsedReviews => {
             reviews = parsedReviews
         })
 }
 
+
+export const useReviews = () => {
+    return reviews.slice()
+}
+
 export const savedReview = (reviewObj) => {
-    return fetch('http://localhost:8088/reviews', {
+    return fetch(`${bakeryAPI.baseURL}/reviews`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -17,9 +26,10 @@ export const savedReview = (reviewObj) => {
         body: JSON.stringify(reviewObj)
     })
     .then(getReviews)
-    .then(dispatchStateChangeEvent)
+    .then(dispatchAddReviewEvent)
 }
 
-export const useReviews = () => {
-    return reviews.slice()
+export const dispatchAddReviewEvent = () => {
+    const reviewStateChangedEvent = new CustomEvent("reviewStateChanged")
+    eventHub.dispatchEvent(reviewStateChangedEvent)
 }
