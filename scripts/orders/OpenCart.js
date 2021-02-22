@@ -42,6 +42,7 @@ const render = () => {
 eventHub.addEventListener("showCustomerCart", e => OpenCart())
 
 eventHub.addEventListener("addToCart", evt => {
+  // console.log("addtoCart",evt)
   const productId = evt.detail.addedProduct
   getProducts()
     .then(() => {
@@ -52,7 +53,8 @@ eventHub.addEventListener("addToCart", evt => {
     })
 })
 
-eventHub.addEventListener("click", clickEvent => {
+userCart.addEventListener("click", clickEvent => {
+  // console.log("placeOrder",clickEvent)
   if (clickEvent.target.id === "placeOrder" && productsInCart.length !== 0) {
     const currentCustomerId = parseInt(authHelper.getCurrentUserId())
     getStatuses()
