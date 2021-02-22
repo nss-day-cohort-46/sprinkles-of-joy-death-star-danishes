@@ -33,6 +33,7 @@ eventHub.addEventListener("click", event => {
     const [idPrefix, idSuffix] = event.target.id.split("--")
     let customEvent
     switch (idSuffix) {
+     
       case "showCart":
         customEvent = new CustomEvent("showCustomerCart")
         break;
