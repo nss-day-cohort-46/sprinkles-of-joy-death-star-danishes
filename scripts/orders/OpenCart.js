@@ -70,7 +70,8 @@ userCart.addEventListener("click", clickEvent => {
         const newOrder = {
           "customerId": currentCustomerId,
           "statusId": initialOrderStatus.id,
-          "timestamp": Date.now()
+          "timestamp": Date.now(),
+          
         }
 
         return saveOrder(newOrder, productsInCart)

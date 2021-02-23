@@ -10,7 +10,7 @@ let customerOrders = []
 
 export const OrderList = () => {
   if (authHelper.isUserLoggedIn()) {
-
+// need to pull in getOrderProducts from provider to access addtional info needed to complete issue #5 
     getOrders()
       .then(() => {
         customerOrders = useOrders()
