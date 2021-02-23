@@ -17,13 +17,13 @@ export const useReviews = () => {
     return reviews.slice()
 }
 
-export const savedReview = (reviewObj) => {
+export const savedReview = (review) => {
     return fetch(`${bakeryAPI.baseURL}/reviews`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(reviewObj)
+        body: JSON.stringify(review)
     })
     .then(getReviews)
     .then(dispatchAddReviewEvent)
