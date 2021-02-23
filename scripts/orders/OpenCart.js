@@ -16,6 +16,11 @@ const render = () => {
   let cartHTML = ""
   let totalCost = 0
 
+  let orderButton = `<button id="placeOrder">Place Order</button>`
+    if (productsInCart.length === 0) {
+      orderButton = `<button id="placeOrder" disabled >Place Order</button>`
+    }
+
   for (const product of productsInCart) {
     cartHTML += `
       <div class="cart">
@@ -32,7 +37,7 @@ const render = () => {
     ${cartHTML}
     <hr/>
     <div class="cart">
-    <button id="placeOrder">Place Order</button>
+    ${orderButton}
     <p>$${totalCost.toFixed(2)}</p>
     </div>
     </div>
@@ -69,6 +74,11 @@ userCart.addEventListener("click", clickEvent => {
         }
 
         return saveOrder(newOrder, productsInCart)
+        
+      })
+      .then(() => {
+        productsInCart = []
+        OpenCart ()
       })
   }
 })
