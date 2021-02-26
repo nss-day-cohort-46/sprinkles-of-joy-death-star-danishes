@@ -21,14 +21,12 @@ export const ProductList = () => {
       render()
     })
 }
-
 const render = () => {
   contentTarget.innerHTML = bakeryProducts.map(product => {
     const productCategory = bakeryCategories.find(category => category.id === product.categoryId)
-
     const productReviews = bakeryReviews.filter(review => review.productId === product.id)
     console.log(productReviews)
-
+    
     return Product(product, productCategory, productReviews)
   }).join("")
 }

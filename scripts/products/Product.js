@@ -1,7 +1,5 @@
 const eventHub = document.querySelector("#container")
 
-let productReviews = []
-
 export const Product = (product, category, productReviews) => {
     return `
       <section class="baked_good">
@@ -12,7 +10,11 @@ export const Product = (product, category, productReviews) => {
           <div>
               <button id="addProduct">Add to Cart</button>
               <p>${product.description} [${category.name}]</p>
-              <div>${productReviews.review}</div>
+
+                ${productReviews.length !== 0 ? productReviews.map(review => {
+                    return `<div>${review.review}</div>`
+                }) : `<div>No product reviews yet</div>`}
+              
           </div>
       </section>
   `
@@ -29,3 +31,10 @@ eventHub.addEventListener("click", evt => {
         eventHub.dispatchEvent(addProductEvent)
     }
 })
+
+// Same conditional as ternary:
+// if (productReviews.length !== 0) {
+//     return `<div>${review.review}</div>`
+// } else {
+//     return `<div>No product reviews yet</div>`
+// }

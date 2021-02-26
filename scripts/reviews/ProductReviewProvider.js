@@ -6,6 +6,7 @@ const eventHub = document.querySelector("#container")
 
 export const getReviews = () => {
     return fetch(`${bakeryAPI.baseURL}/reviews`)
+
         .then(response => response.json())
         .then(parsedReviews => {
             reviews = parsedReviews
